@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #93C5FD 0%, #818CF8 100%);
         }
         .card-hover {
             transition: transform 0.3s ease-in-out;
@@ -34,7 +34,7 @@
                     <h1 class="text-5xl font-bold mb-4">Shwetha Krishnamurthy</h1>
                     <p id="typing-text" class="text-xl mb-8"></p>
                     <div class="flex space-x-4">
-                        <a href="#about" class="bg-white text-purple-600 px-6 py-2 rounded-full hover:bg-purple-100 transition duration-300">About Me</a>
+                        <a href="#about" class="bg-white text-blue-600 px-6 py-2 rounded-full hover:bg-purple-100 transition duration-300">About Me</a>
                         <a href="#projects" class="border-2 border-white text-white px-6 py-2 rounded-full hover:bg-white hover:text-purple-600 transition duration-300">View Projects</a>
                     </div>
                 </div>
@@ -108,19 +108,72 @@
     <section id="resume" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-4xl font-bold mb-12 text-center text-gray-800">Resume</h2>
-            <div class="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
-                <div id="resume-content">
-                    <!-- Add your resume content here -->
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+                <div id="resume-content" class="space-y-8">
+                    <!-- Education -->
                     <div class="mb-8">
-                        <h3 class="text-2xl font-bold text-purple-600 mb-4">Experience</h3>
-                        <!-- Add your experience items here -->
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Education</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-semibold">The University of Chicago Booth School of Business & Department of Computer Science</h4>
+                                <p class="text-gray-600">Master of Business Administration & Master of Science in Computer Science, Joint Degree Program</p>
+                                <p class="text-gray-500">September 2023 – June 2025</p>
+                                <p>SW Scholarship Recipient; Booth AI Group (Co-Chair), Booth Tech Group, AudioBooth; Machine Learning Specialization</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Indian Institute of Technology Kharagpur</h4>
+                                <p class="text-gray-600">Bachelor of Technology in Mechanical Engineering</p>
+                                <p class="text-gray-500">August 2014 – May 2018</p>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Experience -->
                     <div class="mb-8">
-                        <h3 class="text-2xl font-bold text-purple-600 mb-4">Education</h3>
-                        <!-- Add your education items here -->
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Experience</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-semibold">NVIDIA (GenAI & Deep Learning Software)</h4>
+                                <p class="text-gray-600">Product Manager Intern</p>
+                                <p class="text-gray-500">June 2024 – August 2024</p>
+                                <ul class="list-disc ml-6 mt-2 space-y-2">
+                                    <li>Doubled user adoption of NVIDIA Inference Microservices (NIM)</li>
+                                    <li>Led development & production deployment of 12 high-impact playbooks & guides</li>
+                                    <li>Conceptualized & drove development of Code Execution Sandbox for GenAI Agentic Workflows</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Goldman Sachs (Consumer Banking)</h4>
+                                <p class="text-gray-600">Data Scientist: Analyst – Senior Analyst - Associate</p>
+                                <p class="text-gray-500">June 2019 – June 2023</p>
+                                <ul class="list-disc ml-6 mt-2 space-y-2">
+                                    <li>Designed strategy to meet partner expectations & enhance user experience</li>
+                                    <li>Innovated & co-founded cross-product customer knowledge graph platform</li>
+                                    <li>Saved $32M since launch of MVP</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold">Envestnet Yodlee</h4>
+                                <p class="text-gray-600">Associate - Machine Learning Engineer</p>
+                                <p class="text-gray-500">June 2018 – June 2019</p>
+                                <ul class="list-disc ml-6 mt-2 space-y-2">
+                                    <li>Built wealth management product generating $35M revenue</li>
+                                    <li>Developed NLP framework using Sequence to Sequence Learning</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text-center mt-8">
-                        <a href="#" id="download-resume" class="inline-block bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition duration-300">Download Resume</a>
+
+                    <!-- Skills -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Technical Skills</h3>
+                        <p>GenAI Inference, Python(TensorFlow), CUDA, PySpark, Docker, Graph Databases, SQL, NoSQL, Git, JIRA, AWS</p>
+                    </div>
+
+                    <!-- Additional -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Additional</h3>
+                        <p>14 years of training in Carnatic vocals, performed in 11 concerts; self-taught pianist</p>
                     </div>
                 </div>
             </div>
@@ -150,6 +203,15 @@
                 const profileResponse = await fetch(`https://api.github.com/users/${username}`);
                 const profile = await profileResponse.json();
 
+                // Initialize project categories
+                const categories = {
+                    'GenAI': [],
+                    'Deep Learning': [],
+                    'Parallel Programming': [],
+                    'Computer Vision': [],
+                    'Other': []
+                };
+
                 // Update profile information
                 document.getElementById('profile-image').src = profile.avatar_url;
                 document.getElementById('bio').textContent = profile.bio || 'Welcome to my portfolio!';
@@ -178,9 +240,47 @@
                 // Filter out forked repositories
                 const ownRepos = repos.filter(repo => !repo.fork);
 
-                // Display repositories
+                // Fetch README for each repo and categorize
+                for (const repo of ownRepos) {
+                    try {
+                        const readmeResponse = await fetch(`https://api.github.com/repos/${username}/${repo.name}/readme`);
+                        if (readmeResponse.ok) {
+                            const readmeData = await readmeResponse.json();
+                            const readmeContent = atob(readmeData.content);
+                            
+                            // Simple categorization based on repository content and name
+                            if (readmeContent.toLowerCase().includes('generative ai') || 
+                                repo.name.toLowerCase().includes('llm') ||
+                                readmeContent.toLowerCase().includes('llm')) {
+                                categories['GenAI'].push(repo);
+                            } else if (readmeContent.toLowerCase().includes('deep learning') || 
+                                     readmeContent.toLowerCase().includes('neural network')) {
+                                categories['Deep Learning'].push(repo);
+                            } else if (readmeContent.toLowerCase().includes('cuda') || 
+                                     readmeContent.toLowerCase().includes('parallel')) {
+                                categories['Parallel Programming'].push(repo);
+                            } else if (readmeContent.toLowerCase().includes('computer vision') || 
+                                     readmeContent.toLowerCase().includes('opencv')) {
+                                categories['Computer Vision'].push(repo);
+                            } else {
+                                categories['Other'].push(repo);
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Error fetching README for ${repo.name}:`, error);
+                        categories['Other'].push(repo);
+                    }
+                }
+
+                // Display repositories by category
                 const reposContainer = document.getElementById('repositories');
-                reposContainer.innerHTML = ownRepos.map(repo => `
+                reposContainer.innerHTML = Object.entries(categories)
+                    .filter(([_, repos]) => repos.length > 0)
+                    .map(([category, repos]) => `
+                        <div class="col-span-full">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-800">${category}</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                                ${repos.map(repo => `
                     <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
                         <h3 class="text-xl font-bold mb-2 text-purple-600">${repo.name}</h3>
                         <p class="text-gray-600 mb-4 h-20 overflow-hidden">${repo.description || 'No description available'}</p>
