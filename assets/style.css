@@ -2,20 +2,21 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #1F2833; /* Dark navy background for the body */
-    color: #C5C6C7; /* Light gray text */
+    background: #FFFFFF; /* White background */
+    color: #333333;      /* Dark gray text for contrast */
   }
   
-  /* Make all headings uniform and centered */
+  /* Uniform Heading Styles */
   h1, h2, h3 {
     text-align: center;
     font-size: 2em;
-    margin-bottom: 20px; /* Add some spacing */
+    margin-bottom: 20px;
+    color: #003366; /* Navy headings for a nice contrast on white */
   }
   
   /* Header and Navigation */
   header {
-    background: #0B0C10; /* Very dark background */
+    background: #003366; /* Navy header */
     padding: 10px 20px;
   }
   
@@ -27,47 +28,47 @@ body {
   
   header .logo {
     font-size: 1.5em;
-    color: #C5C6C7;
+    color: #FFFFFF;
     text-decoration: none;
   }
   
   .nav-links a {
-    color: #C5C6C7;
+    color: #FFFFFF;
     margin-left: 20px;
     text-decoration: none;
     font-size: 0.95em;
   }
   
   .nav-links a:hover {
-    color: #66FCF1; /* Cyan highlight on hover */
+    text-decoration: underline;
   }
   
   /* Hero Section */
   .hero {
-    background: #1F2833; /* Dark navy */
+    background: #F0F8FF; /* A light tint (AliceBlue) for a subtle hero section */
     text-align: center;
     padding: 100px 20px;
   }
   
   .hero-content h1 {
-    color: #C5C6C7; /* Light gray text for main hero heading */
-    margin-bottom: 0.3em;
+    /* h1 styling already done globally, just ensure color is right */
+    color: #003366;
   }
   
   .hero-content .highlight {
-    color: #66FCF1; /* Cyan highlight for name or important text */
+    color: #FFD700; /* Gold highlight */
   }
   
   .hero-content p {
     font-size: 1.2em;
     margin-bottom: 1em;
-    color: #C5C6C7;
+    color: #333333;
   }
   
   .btn {
     display: inline-block;
-    background: #45A29E; /* Teal button */
-    color: #0B0C10;      /* Dark text for contrast on teal */
+    background: #FFD700; /* Gold button */
+    color: #003366;      /* Dark navy text for contrast */
     padding: 10px 20px;
     text-decoration: none;
     font-weight: bold;
@@ -76,8 +77,8 @@ body {
   }
   
   .btn:hover {
-    background: #66FCF1; /* Hover button to cyan */
-    color: #0B0C10; 
+    background: #e6b800; /* Slightly darker gold on hover */
+    color: #003366;
   }
   
   /* Sections */
@@ -87,13 +88,13 @@ body {
     padding: 0 20px;
   }
   
-  /* Profile Section */
+  /* About Me */
   .profile-container {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 20px;
-    justify-content: center; /* Center content horizontally */
+    justify-content: center; /* Center content */
   }
   
   #profile-pic {
@@ -101,7 +102,7 @@ body {
     height: 200px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #66FCF1; /* Cyan border for avatar */
+    border: 3px solid #003366; /* Navy border for avatar */
   }
   
   .bio {
@@ -124,8 +125,8 @@ body {
   
   /* Project Tiles */
   .project-tile {
-    background: #0B0C10; /* Very dark tile background for contrast */
-    border: 1px solid #1F2833;
+    background: #FFFFFF; /* White tile background */
+    border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
     transition: box-shadow 0.3s ease;
@@ -133,25 +134,25 @@ body {
   }
   
   .project-tile:hover {
-    box-shadow: 0 0 10px rgba(102, 252, 241, 0.3); /* Slight cyan glow on hover */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow on hover */
   }
   
   .project-tile h3 {
     margin-top: 0;
     margin-bottom: 10px;
-    color: #66FCF1; /* Cyan heading for project title */
+    color: #003366; /* Navy title */
   }
   
   .project-tile p {
     font-size: 0.95em;
-    color: #C5C6C7;
+    color: #555;
     margin-bottom: 15px;
   }
   
   .project-tile a {
     display: inline-block;
-    background: #45A29E;
-    color: #0B0C10;
+    background: #FFD700;
+    color: #003366;
     padding: 6px 12px;
     border-radius: 3px;
     text-decoration: none;
@@ -159,20 +160,20 @@ body {
   }
   
   .project-tile a:hover {
-    background: #66FCF1;
-    color: #0B0C10;
+    background: #e6b800;
+    color: #003366;
   }
   
   /* Resume Page */
-  .resume-container h1,
   .resume-container p {
-    color: #C5C6C7;
+    text-align: center;
+    color: #333333;
   }
   
   /* Footer */
   footer {
-    background: #0B0C10;
-    color: #C5C6C7;
+    background: #003366;
+    color: #FFFFFF;
     text-align: center;
     padding: 20px 0;
     margin-top: 60px;
