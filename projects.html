@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="resume/resume.pdf" target="_blank">Resume</a>
+      <a href="projects.html">Projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>My Projects</h1>
+    <div class="categories">
+      <h2>GenAI</h2>
+      <div id="genai-projects" class="project-grid"></div>
+
+      <h2>Computer Vision</h2>
+      <div id="cv-projects" class="project-grid"></div>
+
+      <h2>Deep Learning</h2>
+      <div id="dl-projects" class="project-grid"></div>
+
+      <h2>Parallel Programming</h2>
+      <div id="pp-projects" class="project-grid"></div>
+    </div>
+  </main>
+
+  <script src="scripts/fetchRepos.js"></script>
+</body>
+</html>
