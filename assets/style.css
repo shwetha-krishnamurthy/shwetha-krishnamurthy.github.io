@@ -184,7 +184,7 @@ body {
   }
   
   /* Responsive Adjustments */
-  @media (max-width: 600px) {
+  @media (max-width: 650px) {
     .profile-container {
       flex-direction: column;
       align-items: center;
