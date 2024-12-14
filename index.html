@@ -7,14 +7,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #60A5FA;
+            --primary-light: #93C5FD;
+            --primary-dark: #3B82F6;
+            --secondary-color: #F0F9FF;
+        }
         .gradient-bg {
-            background: linear-gradient(135deg, #93C5FD 0%, #818CF8 100%);
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
         }
         .card-hover {
-            transition: transform 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
         .card-hover:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         .animate-fade-in {
             animation: fadeIn 1s ease-in;
@@ -22,6 +29,18 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        .bg-primary {
+            background-color: var(--primary-color);
+        }
+        .bg-primary-light {
+            background-color: var(--primary-light);
+        }
+        .text-primary {
+            color: var(--primary-color);
+        }
+        .hover-primary:hover {
+            background-color: var(--primary-dark);
         }
     </style>
 </head>
@@ -199,9 +218,26 @@
         // Fetch GitHub profile and repositories
         async function fetchGitHubData() {
             try {
+                // Add authorization header for higher rate limit
+                const headers = {
+                    'Accept': 'application/vnd.github.v3+json'
+                };
+
                 // Fetch profile data
-                const profileResponse = await fetch(`https://api.github.com/users/${username}`);
+                const profileResponse = await fetch(`https://api.github.com/users/${username}`, { headers });
+                if (!profileResponse.ok) {
+                    throw new Error(`GitHub API error: ${profileResponse.status}`);
+                }
                 const profile = await profileResponse.json();
+
+                // Update profile image with error handling
+                const profileImg = document.getElementById('profile-image');
+                if (profile.avatar_url) {
+                    profileImg.src = profile.avatar_url;
+                    profileImg.onerror = () => {
+                        profileImg.src = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+                    };
+                }
 
                 // Initialize project categories
                 const categories = {
@@ -233,12 +269,27 @@
                     </div>
                 `;
 
-                // Fetch repositories
-                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
-                const repos = await reposResponse.json();
+                // Fetch repositories with pagination
+                let page = 1;
+                let allRepos = [];
+                while (true) {
+                    const reposResponse = await fetch(
+                        `https://api.github.com/users/${username}/repos?page=${page}&per_page=100`,
+                        { headers }
+                    );
+                    if (!reposResponse.ok) {
+                        throw new Error(`GitHub API error: ${reposResponse.status}`);
+                    }
+                    const repos = await reposResponse.json();
+                    if (repos.length === 0) break;
+                    allRepos = [...allRepos, ...repos];
+                    page++;
+                }
 
-                // Filter out forked repositories
-                const ownRepos = repos.filter(repo => !repo.fork);
+                // Filter out forked repositories and sort by updated date
+                const ownRepos = allRepos
+                    .filter(repo => !repo.fork)
+                    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
                 // Fetch README for each repo and categorize
                 for (const repo of ownRepos) {
@@ -282,13 +333,23 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                                 ${repos.map(repo => `
                     <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
-                        <h3 class="text-xl font-bold mb-2 text-purple-600">${repo.name}</h3>
+                        <h3 class="text-xl font-bold mb-2 text-primary">${repo.name.replace(/-/g, ' ').replace(/_/g, ' ')}</h3>
                         <p class="text-gray-600 mb-4 h-20 overflow-hidden">${repo.description || 'No description available'}</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${repo.topics ? repo.topics.map(topic => 
+                                `<span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">${topic}</span>`
+                            ).join('') : ''}
+                        </div>
                         <div class="flex items-center justify-between">
-                            <a href="${repo.html_url}" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium">View Project →</a>
+                            <a href="${repo.html_url}" target="_blank" class="text-primary hover:text-primary-dark font-medium flex items-center">
+                                View Project 
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
                             <div class="flex items-center space-x-4">
                                 <span class="text-gray-500">⭐ ${repo.stargazers_count}</span>
-                                <span class="text-gray-500">${repo.language || ''}</span>
+                                ${repo.language ? `<span class="text-gray-500">${repo.language}</span>` : ''}
                             </div>
                         </div>
                     </div>
