@@ -2,12 +2,13 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #f9f9f9;
-    color: #333;
+    background: #1F2833; /* Dark navy background for the body */
+    color: #C5C6C7; /* Light gray text */
   }
   
+  /* Header and Navigation */
   header {
-    background: #222;
+    background: #0B0C10; /* Very dark background */
     padding: 10px 20px;
   }
   
@@ -19,24 +20,24 @@ body {
   
   header .logo {
     font-size: 1.5em;
-    color: #fff;
+    color: #C5C6C7;
     text-decoration: none;
   }
   
   .nav-links a {
-    color: #fff;
+    color: #C5C6C7;
     margin-left: 20px;
     text-decoration: none;
     font-size: 0.95em;
   }
   
   .nav-links a:hover {
-    text-decoration: underline;
+    color: #66FCF1; /* Cyan highlight on hover */
   }
   
+  /* Hero Section */
   .hero {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://source.unsplash.com/1600x900/?technology,abstract') center/cover;
-    color: #fff;
+    background: #1F2833; /* Dark navy */
     text-align: center;
     padding: 100px 20px;
   }
@@ -44,43 +45,49 @@ body {
   .hero-content h1 {
     font-size: 3em;
     margin-bottom: 0.3em;
+    color: #C5C6C7; /* Light gray text for main hero heading */
   }
   
   .hero-content .highlight {
-    color: #ffcc00;
+    color: #66FCF1; /* Cyan highlight for name or important text */
   }
   
   .hero-content p {
     font-size: 1.2em;
     margin-bottom: 1em;
+    color: #C5C6C7;
   }
   
   .btn {
     display: inline-block;
-    background: #ffcc00;
-    color: #222;
+    background: #45A29E; /* Teal button */
+    color: #0B0C10;      /* Dark text for contrast on teal */
     padding: 10px 20px;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
+    transition: background 0.3s;
   }
   
   .btn:hover {
-    background: #e6b800;
+    background: #66FCF1; /* Hover button to cyan for variety */
+    color: #0B0C10; 
   }
   
-  .intro-section, .about-me-section, .resume-container {
+  /* Sections */
+  .intro-section, .about-me-section, .resume-container, .categories {
     max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
   }
   
-  .intro-section h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  .intro-section h2,
+  .categories h2,
+  .bio h1 {
+    color: #C5C6C7;
   }
   
-  .about-me-section .profile-container {
+  .profile-container {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -92,30 +99,15 @@ body {
     height: 200px;
     object-fit: cover;
     border-radius: 50%;
+    border: 3px solid #66FCF1; /* Cyan border for avatar */
   }
   
-  .bio {
-    flex: 1;
-  }
-  
+  /* Bio text */
   .bio h1 {
     margin-top: 0;
   }
   
-  .categories {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px;
-  }
-  
-  .categories h2 {
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5em;
-  }
-  
+  /* Projects Grid */
   .project-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
@@ -123,34 +115,36 @@ body {
     margin-bottom: 40px;
   }
   
+  /* Project Tiles */
   .project-tile {
-    background: #fff;
-    border: 1px solid #ddd;
+    background: #0B0C10; /* Very dark tile background for contrast */
+    border: 1px solid #1F2833;
     border-radius: 5px;
     padding: 20px;
     transition: box-shadow 0.3s ease;
   }
   
   .project-tile:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(102, 252, 241, 0.3); /* Slight cyan glow on hover */
   }
   
   .project-tile h3 {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 1.2em;
+    color: #66FCF1; /* Cyan heading for project title */
   }
   
   .project-tile p {
     font-size: 0.95em;
-    color: #555;
+    color: #C5C6C7;
     margin-bottom: 15px;
   }
   
   .project-tile a {
     display: inline-block;
-    background: #0077cc;
-    color: #fff;
+    background: #45A29E;
+    color: #0B0C10;
     padding: 6px 12px;
     border-radius: 3px;
     text-decoration: none;
@@ -158,29 +152,39 @@ body {
   }
   
   .project-tile a:hover {
-    background: #005fa3;
+    background: #66FCF1;
+    color: #0B0C10;
   }
   
+  /* Resume Page */
   .resume-container h1 {
     text-align: center;
     margin-bottom: 20px;
+    color: #C5C6C7;
   }
   
   .resume-container p {
     text-align: center;
     margin-bottom: 20px;
+    color: #C5C6C7;
   }
   
+  /* Footer */
   footer {
-    background: #222;
-    color: #fff;
+    background: #0B0C10;
+    color: #C5C6C7;
     text-align: center;
     padding: 20px 0;
     margin-top: 60px;
   }
   
+  footer p {
+    margin: 0;
+  }
+  
+  /* Responsive Adjustments */
   @media (max-width: 600px) {
-    .about-me-section .profile-container {
+    .profile-container {
       flex-direction: column;
       align-items: center;
     }
