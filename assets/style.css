@@ -2,8 +2,8 @@ body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #FFFFFF; /* White background */
-    color: #333333;      /* Dark gray text for contrast */
+    background: #E8ECEB; /* Light grayish background */
+    color: #2D3E4E; /* Dark blue-gray text for good contrast */
   }
   
   /* Uniform Heading Styles */
@@ -11,12 +11,12 @@ body {
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
-    color: #003366; /* Navy headings for a nice contrast on white */
+    color: #2D3E4E; /* Headings use the dark blue-gray */
   }
   
   /* Header and Navigation */
   header {
-    background: #003366; /* Navy header */
+    background: #2D3E4E; /* Dark navy-ish background for header */
     padding: 10px 20px;
   }
   
@@ -28,47 +28,46 @@ body {
   
   header .logo {
     font-size: 1.5em;
-    color: #FFFFFF;
+    color: #E8ECEB;
     text-decoration: none;
   }
   
   .nav-links a {
-    color: #FFFFFF;
+    color: #E8ECEB;
     margin-left: 20px;
     text-decoration: none;
     font-size: 0.95em;
   }
   
   .nav-links a:hover {
-    text-decoration: underline;
+    color: #8CBDB9; /* Teal accent on hover for nav links */
   }
   
   /* Hero Section */
   .hero {
-    background: #F0F8FF; /* A light tint (AliceBlue) for a subtle hero section */
+    background: #E8ECEB; /* Same as body, or slightly different if you prefer */
     text-align: center;
     padding: 100px 20px;
   }
   
   .hero-content h1 {
-    /* h1 styling already done globally, just ensure color is right */
-    color: #003366;
+    /* h1 styled globally, just ensure color is #2D3E4E by default */
   }
   
   .hero-content .highlight {
-    color: #FFD700; /* Gold highlight */
+    color: #E09E50; /* Orange highlight */
   }
   
   .hero-content p {
     font-size: 1.2em;
     margin-bottom: 1em;
-    color: #333333;
+    color: #2D3E4E;
   }
   
   .btn {
     display: inline-block;
-    background: #FFD700; /* Gold button */
-    color: #003366;      /* Dark navy text for contrast */
+    background: #E09E50; /* Orange button */
+    color: #E8ECEB;      /* Light text for contrast on orange */
     padding: 10px 20px;
     text-decoration: none;
     font-weight: bold;
@@ -77,8 +76,8 @@ body {
   }
   
   .btn:hover {
-    background: #e6b800; /* Slightly darker gold on hover */
-    color: #003366;
+    background: #c98845; /* Slightly darker shade of orange on hover */
+    color: #E8ECEB;
   }
   
   /* Sections */
@@ -88,7 +87,6 @@ body {
     padding: 0 20px;
   }
   
-  /* About Me */
   .profile-container {
     display: flex;
     flex-wrap: wrap;
@@ -102,7 +100,7 @@ body {
     height: 200px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #003366; /* Navy border for avatar */
+    border: 3px solid #8CBDB9; /* Teal border for avatar */
   }
   
   .bio {
@@ -125,34 +123,34 @@ body {
   
   /* Project Tiles */
   .project-tile {
-    background: #FFFFFF; /* White tile background */
+    background: #FFFFFF; /* White tile for contrast against the light background */
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
     transition: box-shadow 0.3s ease;
-    text-align: left; /* Left align for project details */
+    text-align: left;
   }
   
   .project-tile:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow on hover */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   
   .project-tile h3 {
     margin-top: 0;
     margin-bottom: 10px;
-    color: #003366; /* Navy title */
+    color: #2D3E4E; /* Dark blue-gray for titles */
   }
   
   .project-tile p {
     font-size: 0.95em;
-    color: #555;
+    color: #333; /* Slightly darker text for contrast on white tile */
     margin-bottom: 15px;
   }
   
   .project-tile a {
     display: inline-block;
-    background: #FFD700;
-    color: #003366;
+    background: #E09E50; /* Orange button */
+    color: #E8ECEB;
     padding: 6px 12px;
     border-radius: 3px;
     text-decoration: none;
@@ -160,20 +158,20 @@ body {
   }
   
   .project-tile a:hover {
-    background: #e6b800;
-    color: #003366;
+    background: #c98845; 
+    color: #E8ECEB;
   }
   
   /* Resume Page */
   .resume-container p {
     text-align: center;
-    color: #333333;
+    color: #2D3E4E;
   }
   
   /* Footer */
   footer {
-    background: #003366;
-    color: #FFFFFF;
+    background: #2D3E4E;
+    color: #E8ECEB;
     text-align: center;
     padding: 20px 0;
     margin-top: 60px;
@@ -184,7 +182,7 @@ body {
   }
   
   /* Responsive Adjustments */
-  @media (max-width: 650px) {
+  @media (max-width: 600px) {
     .profile-container {
       flex-direction: column;
       align-items: center;
