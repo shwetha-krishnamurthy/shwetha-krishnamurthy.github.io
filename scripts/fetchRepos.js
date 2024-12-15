@@ -72,27 +72,42 @@ function createRepoTile(repo, readme) {
   const title = document.createElement('h3');
   title.textContent = formatRepoTitle(repo.name);
 
-  const excerpt = document.createElement('div');
-  // Extract the first paragraph or first ~200 chars from the README
-  // Then render as Markdown
+  // Render a short excerpt from the README
   let shortText = readme.trim().split('\n\n')[0] || readme;
-  // Limit length to prevent huge content
   if (shortText.length > 200) {
     shortText = shortText.slice(0, 200) + '...';
   }
-  
-  // Render Markdown to HTML using marked
+
   const renderedHTML = marked.parse(shortText);
+  const excerpt = document.createElement('div');
   excerpt.innerHTML = renderedHTML;
 
-  const link = document.createElement('a');
-  link.href = repo.homepage && repo.homepage !== '' ? repo.homepage : repo.html_url;
-  link.target = '_blank';
-  link.textContent = 'View Project';
+  // "View Project" links to the GitHub repo by default
+  const linkContainer = document.createElement('div');
+  linkContainer.style.display = 'flex';
+  linkContainer.style.gap = '10px';
+  
+  const viewProjectLink = document.createElement('a');
+  viewProjectLink.href = repo.html_url; 
+  viewProjectLink.target = '_blank';
+  viewProjectLink.textContent = 'View Project';
+  viewProjectLink.className = 'btn-project'; // Add a class if you want different styling
+
+  linkContainer.appendChild(viewProjectLink);
+
+  // If homepage field is present and not empty, add another link
+  if (repo.homepage && repo.homepage.trim() !== '') {
+    const websiteLink = document.createElement('a');
+    websiteLink.href = repo.homepage;
+    websiteLink.target = '_blank';
+    websiteLink.textContent = 'Visit Website';
+    websiteLink.className = 'btn-website'; // Add a class for styling
+    linkContainer.appendChild(websiteLink);
+  }
 
   tile.appendChild(title);
   tile.appendChild(excerpt);
-  tile.appendChild(link);
+  tile.appendChild(linkContainer);
 
   return tile;
 }

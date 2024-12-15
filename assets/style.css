@@ -92,6 +92,23 @@ header .logo {
   color: #E8ECEB;
 }
 
+.btn-project, .btn-website {
+  display: inline-block;
+  background: #E09E50; /* Same button color as before */
+  color: #E8ECEB;
+  padding: 6px 12px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 0.9em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background 0.3s;
+}
+
+.btn-project:hover, .btn-website:hover {
+  background: #c98845;
+  color: #E8ECEB;
+}
+
 /* Sections */
 .intro-section, .about-me-section, .resume-container, .categories {
   max-width: 1000px;
@@ -169,7 +186,7 @@ header .logo {
 .project-tile h3 {
   margin-top: 0;
   margin-bottom: 15px;
-  font-size: 1.4em;
+  font-size: 2.00em;
   color: #2D3E4E;
   font-family: 'Rufina', serif;
   text-align: center;
