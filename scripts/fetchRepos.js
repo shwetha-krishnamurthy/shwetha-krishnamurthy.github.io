@@ -1,4 +1,4 @@
-const USERNAME = 'shwewtha-krishnamurthy'; // Replace with your GitHub username
+const USERNAME = 'shwetha-krishnamurthy'; // Replace with your GitHub username
 
 document.addEventListener('DOMContentLoaded', fetchAndDisplayProjects);
 
