@@ -1,11 +1,10 @@
-const USERNAME = 'shwetha-krishnamurthy'; // Replace with your GitHub username
+const USERNAME = 'shwewtha-krishnamurthy'; // Replace with your GitHub username
 
 document.addEventListener('DOMContentLoaded', fetchAndDisplayProjects);
 
 async function fetchAndDisplayProjects() {
   const repos = await fetchRepos();
   for (const repo of repos) {
-    // Skip forks
     if (repo.fork) continue;
 
     const readmeText = await fetchReadme(repo.name);
@@ -23,15 +22,13 @@ async function fetchRepos() {
 }
 
 async function fetchReadme(repoName) {
-  // Try main branch
   const mainUrl = `https://raw.githubusercontent.com/${USERNAME}/${repoName}/main/README.md`;
   let response = await fetch(mainUrl);
   if (!response.ok) {
-    // Try master branch if main not found
     const masterUrl = `https://raw.githubusercontent.com/${USERNAME}/${repoName}/master/README.md`;
     response = await fetch(masterUrl);
     if (!response.ok) {
-      return ""; // No README found
+      return "";
     }
   }
   return response.text();
@@ -40,28 +37,32 @@ async function fetchReadme(repoName) {
 function categorizeRepo(readme) {
   const text = readme.toLowerCase();
 
-  // GenAI keywords
   if (text.includes('rag') || text.includes('langchain') || text.includes('generative ai')) {
     return 'genai-projects';
   }
 
-  // Computer Vision keywords
   if (text.includes('vision') || text.includes('opencv')) {
     return 'cv-projects';
   }
 
-  // Deep Learning keywords
   if (text.includes('deep learning') || text.includes('lstms')) {
     return 'dl-projects';
   }
 
-  // Parallel Programming keywords
   if (text.includes('cuda') || text.includes('openmp')) {
     return 'pp-projects';
   }
 
-  // No match, return null
   return null;
+}
+
+function formatRepoTitle(name) {
+  // Remove hyphens and underscores, capitalize each word
+  return name
+    .replace(/[-_]+/g, ' ')           // Replace hyphens/underscores with spaces
+    .split(' ')                       // Split into words
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter of each word
+    .join(' ');
 }
 
 function createRepoTile(repo, readme) {
@@ -69,10 +70,20 @@ function createRepoTile(repo, readme) {
   tile.className = 'project-tile';
 
   const title = document.createElement('h3');
-  title.textContent = repo.name;
+  title.textContent = formatRepoTitle(repo.name);
 
-  const excerpt = document.createElement('p');
-  excerpt.textContent = readme.slice(0, 150).trim() + (readme.length > 150 ? '...' : '');
+  const excerpt = document.createElement('div');
+  // Extract the first paragraph or first ~200 chars from the README
+  // Then render as Markdown
+  let shortText = readme.trim().split('\n\n')[0] || readme;
+  // Limit length to prevent huge content
+  if (shortText.length > 200) {
+    shortText = shortText.slice(0, 200) + '...';
+  }
+  
+  // Render Markdown to HTML using marked
+  const renderedHTML = marked.parse(shortText);
+  excerpt.innerHTML = renderedHTML;
 
   const link = document.createElement('a');
   link.href = repo.homepage && repo.homepage !== '' ? repo.homepage : repo.html_url;
