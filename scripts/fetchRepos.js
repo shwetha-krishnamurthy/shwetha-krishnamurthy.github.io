@@ -86,6 +86,7 @@ function createRepoTile(repo, readme) {
   const linkContainer = document.createElement('div');
   linkContainer.style.display = 'flex';
   linkContainer.style.gap = '10px';
+  linkContainer.className = 'buttons-container';
   
   const viewProjectLink = document.createElement('a');
   viewProjectLink.href = repo.html_url; 

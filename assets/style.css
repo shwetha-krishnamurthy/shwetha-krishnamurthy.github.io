@@ -96,13 +96,14 @@ header .logo {
   display: inline-block;
   background: #E09E50;
   color: #E8ECEB;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 3px;
   text-decoration: none;
   font-size: 0.9em;
   font-family: 'Roboto', sans-serif;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: background 0.3s;
+  white-space: nowrap; /* ensure text doesn't wrap in buttons */
 }
 
 .btn-project:hover, .btn-website:hover {
@@ -183,6 +184,7 @@ header .logo {
   /* Use flex layout so we can push buttons to bottom */
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* top-align content */
   
   /* Ensure a minimum height so all tiles are consistent in size.
      Adjust as necessary based on your content. */
@@ -216,17 +218,13 @@ header .logo {
   flex: 1;
 }
 
-/* The container holding the buttons */
-.project-tile div:nth-last-child(1) {
-  /* Ensure there's spacing above the buttons if needed */
-  margin-top: 20px;
-}
-
-/* Buttons container from previous code */
-.project-tile div:nth-last-child(1) {
+/* This is the container that holds the buttons */
+.buttons-container {
   display: flex;
+  justify-content: center; 
+  align-items: center;
   gap: 10px;
-  flex-wrap: wrap; /* If needed, else remove this line */
+  margin-top: 20px; /* spacing above buttons */
 }
 
 .project-tile a {
