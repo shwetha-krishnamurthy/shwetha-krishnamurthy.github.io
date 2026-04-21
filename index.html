@@ -1,42 +1,974 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shwetha Krishnamurthy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Rufina:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMZB3FZ9ogWc7l7JG4FyZ5A7E4Akf9wuSdXGUug" crossorigin="anonymous" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shwetha Krishnamurthy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: oklch(16% 0.02 50);
+    --bg2: oklch(20% 0.025 50);
+    --text: oklch(92% 0.01 55);
+    --text-muted: oklch(65% 0.015 55);
+    --accent: oklch(72% 0.14 38);
+    --accent-light: oklch(28% 0.06 38);
+    --border: oklch(28% 0.02 50);
+    --card-bg: oklch(20% 0.025 50);
+    --nav-bg: oklch(16% 0.02 50);
+    --font-head: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+  }
+
+  [data-theme="warm"] {
+    --bg: oklch(97% 0.01 55);
+    --bg2: oklch(93% 0.015 55);
+    --text: oklch(20% 0.02 50);
+    --text-muted: oklch(45% 0.02 50);
+    --accent: oklch(52% 0.14 38);
+    --accent-light: oklch(90% 0.05 38);
+    --border: oklch(87% 0.02 55);
+    --card-bg: oklch(99% 0.005 55);
+    --nav-bg: oklch(97% 0.01 55);
+    --font-head: 'Playfair Display', Georgia, serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+  }
+
+  [data-theme="minimal"] {
+    --bg: #ffffff;
+    --bg2: #f7f7f7;
+    --text: #1a1a1a;
+    --text-muted: #666666;
+    --accent: oklch(45% 0.18 250);
+    --accent-light: oklch(94% 0.05 250);
+    --border: #e5e5e5;
+    --card-bg: #ffffff;
+    --nav-bg: rgba(255,255,255,0.95);
+    --font-head: 'Source Sans 3', system-ui, sans-serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.7;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 60px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .nav-name {
+    font-family: var(--font-head);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* SECTIONS */
+  section {
+    padding: 5.5rem 0;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  section.visible { opacity: 1; transform: translateY(0); }
+  #hero { padding-top: 8rem; }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  .hero-eyebrow {
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .hero-name {
+    font-family: var(--font-head);
+    font-size: clamp(2.8rem, 5.5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.12;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+  .hero-title strong { color: var(--text); font-weight: 500; }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.85;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.6rem;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: var(--font-body);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    border: none;
+  }
+  .btn-primary { background: var(--accent); color: oklch(16% 0.02 50); }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SECTION LABELS */
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: clamp(1.65rem, 2.8vw, 2.1rem);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+    margin-bottom: 2.75rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .sidebar-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.2rem 1.35rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .sidebar-card h4 {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+  }
+  .sidebar-card ul { list-style: none; }
+  .sidebar-card ul li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding: 0.22rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .sidebar-card ul li:last-child { border-bottom: none; }
+  .sidebar-card ul li::before { content: "—"; color: var(--accent); font-size: 0.7rem; flex-shrink: 0; }
+
+  /* EXPERIENCE */
+  .timeline { display: flex; flex-direction: column; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 2rem;
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:first-child { padding-top: 0; }
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    padding-top: 0.3rem;
+    line-height: 1.5;
+  }
+
+  .timeline-role {
+    font-family: var(--font-head);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+
+  .timeline-company {
+    font-size: 0.875rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.85rem;
+  }
+
+  .timeline-desc {
+    color: var(--text-muted);
+    font-size: 0.93rem;
+    line-height: 1.8;
+  }
+
+  .timeline-bullets {
+    list-style: none;
+    margin-top: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .timeline-bullets li {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .timeline-bullets li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .timeline-bullets li strong { color: var(--text); font-weight: 500; }
+
+  .timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.2rem 0.65rem;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--bg2); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.6rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s, background 0.3s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  .project-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+  }
+
+  .project-icon {
+    width: 34px; height: 34px;
+    border-radius: 4px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.3s;
+  }
+  .project-icon svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+  .project-link-icon { color: var(--text-muted); }
+  .project-link-icon svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  .project-name {
+    font-family: var(--font-head);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+
+  .project-desc {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.75;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  /* EDUCATION */
+  .edu-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 1.35rem 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    gap: 1rem;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .edu-degree {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .edu-school { font-size: 0.875rem; color: var(--accent); font-weight: 500; }
+  .edu-detail { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .edu-year { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
+
+  /* BLOG / WRITING */
+  #blog { }
+
+  .blog-list { display: flex; flex-direction: column; }
+
+  .blog-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+  }
+  .blog-item:first-child { border-top: 1px solid var(--border); }
+
+  .blog-item-title {
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    transition: color 0.2s;
+  }
+  .blog-item:hover .blog-item-title { color: var(--accent); }
+  .blog-item-meta { font-size: 0.8rem; color: var(--text-muted); }
+  .blog-item-date { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; }
+  .blog-item-arrow { color: var(--text-muted); transition: color 0.2s, transform 0.2s; }
+  .blog-item:hover .blog-item-arrow { color: var(--accent); transform: translateX(3px); }
+
+  .blog-placeholder {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    padding: 1.5rem 0 0;
+    font-family: var(--font-head);
+  }
+
+  /* CONTACT */
+  #contact { background: var(--bg2); }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-intro {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.7; flex-shrink: 0; }
+
+  form { display: flex; flex-direction: column; gap: 0.9rem; }
+
+  .field label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+
+  .field input, .field textarea {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.3s;
+    outline: none;
+    resize: none;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--accent); }
+  .field textarea { height: 110px; }
+
+  .form-success {
+    display: none;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.85rem 1.1rem;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2.25rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+    transition: border-color 0.3s;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.78rem; }
+    .about-grid, .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .timeline-item { grid-template-columns: 1fr; gap: 0.4rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .edu-item { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Shwetha Krishnamurthy</a>
-      <div class="nav-links">
-        <a href="about.html">About Me</a>
-        <a href="resume.html">Resume</a>
-        <a href="projects.html">Projects</a>
+
+<nav id="main-nav">
+  <a class="nav-name" href="#hero">SK</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#blog">Writing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="visible">
+  <div class="container">
+    <p class="hero-eyebrow">Senior Product Manager · LLM Inference</p>
+    <h1 class="hero-name">Shwetha<br>Krishnamurthy</h1>
+    <p class="hero-title">
+      <strong>Senior PM at NVIDIA</strong> building LLM inference infrastructure —
+      disaggregated serving, KV-cache-aware routing, and the stack behind fast, efficient AI at scale.
+    </p>
+    <p class="hero-desc">
+      I sit at the intersection of machine learning and product. I've shipped systems that screen
+      60M+ card applicants in under 10 seconds, cut organized fraud by 99%, and delivered
+      10× TTFT improvements on production LLM deployments. Engineering background.
+      Product mindset.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-outline">View experience</a>
+      <a href="https://github.com/shwetha-krishnamurthy" target="_blank" class="btn btn-outline">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="flex-shrink:0">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.137 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
+        GitHub
+      </a>
+      <a href="https://developer.nvidia.com/blog/author/skrishnamurt/" target="_blank" class="btn btn-outline">NVIDIA Blog</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Background</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a Senior Product Manager at <strong>NVIDIA</strong> working on NIM with Dynamo —
+          a platform for disaggregated LLM serving with KV cache-aware routing. I led this
+          product 0-to-1: from customer discovery and UX design through co-architecting a
+          Kubernetes operator with engineering, shipping Early Access in 6 months with
+          10+ enterprise partners on path to production.
+        </p>
+        <p>
+          Before joining NVIDIA, I spent four years at <strong>Goldman Sachs</strong> as a
+          data scientist on Apple Card and GM Cards — building ML models that screened 60M+
+          applicants in under 10 seconds, and co-founding a cross-product customer knowledge
+          graph platform that reduced organized fraud by 99% and saved $32M since MVP.
+          I received the maximum performance rating for three consecutive years.
+        </p>
+        <p>
+          Earlier, at <strong>Yodlee</strong>, I built Seq2Seq NLP models for financial
+          transaction categorization — 500× faster than the prior approach — serving 16K+
+          wealth advisors and 30M+ bank customers across North America.
+        </p>
+        <p>
+          Outside work: 14 years of Carnatic vocal training, 11 concerts performed,
+          and a self-taught pianist.
+        </p>
       </div>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Hello, I'm <span class="highlight">Shwetha Krishnamurthy</span></h1>
-        <p>I'm a tech enthusiast who finds AI fascinating, writes code for fun, and occasionally breaks into music.</p>
-        <a class="btn" href="projects.html">View My Projects</a>
+      <div class="about-sidebar">
+        <div class="sidebar-card">
+          <h4>Focus Areas</h4>
+          <ul>
+            <li>LLM Inference & Serving</li>
+            <li>Disaggregated Architectures</li>
+            <li>KV Cache-aware Routing</li>
+            <li>ML Infrastructure</li>
+            <li>Fraud Detection Systems</li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h4>Technical Skills</h4>
+          <ul>
+            <li>Python · TensorFlow · PyTorch</li>
+            <li>CUDA · PySpark · Docker</li>
+            <li>Graph Databases · SQL</li>
+            <li>AWS · Kubernetes · Git</li>
+            <li>Seq2Seq · Transformers</li>
+          </ul>
+        </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section class="intro-section">
-      <h2>Welcome to My Portfolio</h2>
-      <p>Here you will find a showcase of my work, my professional background, and insights into the projects I've developed. Explore, learn, and feel free to connect!</p>
-    </section>
-  </main>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Career</h2>
+    <div class="timeline">
 
-  <footer>
-    <p>&copy; 2024 Shwetha Krishnamurthy. All Rights Reserved.</p>
-  </footer>
+      <div class="timeline-item">
+        <div class="timeline-date">Jul 2025 – Present</div>
+        <div class="timeline-content">
+          <p class="timeline-role">Senior Product Manager</p>
+          <p class="timeline-company">NVIDIA — GenAI & Deep Learning Software</p>
+          <ul class="timeline-bullets">
+            <li>Led <strong>NIM with Dynamo (NIM-d)</strong> 0-to-1: customer discovery → UX design (adopted in Dynamo OSS) → co-architecting Kubernetes operator → Early Access in 6 months with 10+ enterprise partners</li>
+            <li>Shipped KV cache-aware router as Helm chart, achieving <strong>10× TTFT improvement</strong> and 26% throughput gain over round-robin baseline</li>
+            <li>Built inference observability dashboard; caught zero-cache-hit bug in Nemotron Super unresolved in OSS vLLM — diagnosed root cause, drove patch, unlocking 5× latency improvement</li>
+            <li>Designed admin console for 1-click disaggregated serving stack deployment; prototype now in active engineering development</li>
+            <li>Devised "better together" GTM strategy for NVIDIA NIM + Run:AI; authored <a href="https://developer.nvidia.com/blog/author/skrishnamurt/" target="_blank" style="color:var(--accent);text-decoration:none;">published NVIDIA developer blog</a> demonstrating ~2× GPU utilization improvement and 44–61× faster cold-start latency</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tag">LLM Inference</span>
+            <span class="tag">Disaggregated Serving</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">KV Routing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jun – Aug 2024</div>
+        <div class="timeline-content">
+          <p class="timeline-role">Product Manager Intern</p>
+          <p class="timeline-company">NVIDIA — GenAI & Deep Learning Software</p>
+          <ul class="timeline-bullets">
+            <li><strong>Doubled user adoption</strong> of NVIDIA Inference Microservices (NIM) by enhancing usability, adoption assets, and documentation</li>
+            <li>Conceptualized and drove development of a Code Execution Sandbox for GenAI Agentic Workflows — from PRD with customer segments and pain points to MVP</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tag">NIM</span>
+            <span class="tag">Agentic AI</span>
+            <span class="tag">Product Strategy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jun 2019 – Jun 2023</div>
+        <div class="timeline-content">
+          <p class="timeline-role">Data Scientist, Analyst → Associate</p>
+          <p class="timeline-company">Goldman Sachs — Consumer Banking</p>
+          <p class="timeline-desc" style="margin-bottom:0.5rem;">Maximum performance rating for 3 consecutive years. Drove ML strategy across Apple Card and GM Cards, acquiring 75% of consumer bank users via co-branded credit cards (CSAT score 88%).</p>
+          <ul class="timeline-bullets">
+            <li>Developed high-precision ML models screening <strong>60M+ Apple Card applicants within 10 seconds</strong> — ranked #1 in JD Power US Credit Card Satisfaction Study 2021 & 2022</li>
+            <li>Co-founded a cross-product customer knowledge graph platform, reducing <strong>organized fraud by 99%</strong> and saving $32M since MVP; now adopted across all GS business verticals</li>
+            <li>Secured $1M+ budget, onboarded graph vendor, built a team of 10 engineers; forecasted $90M in savings over 3 years</li>
+            <li>Top 4/300 ideas at GS Accelerate 2020 idea accelerator</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tag">Fraud Detection</span>
+            <span class="tag">Apple Card</span>
+            <span class="tag">Graph ML</span>
+            <span class="tag">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jun 2018 – Jun 2019</div>
+        <div class="timeline-content">
+          <p class="timeline-role">Associate, Machine Learning Engineer</p>
+          <p class="timeline-company">Envestnet Yodlee</p>
+          <ul class="timeline-bullets">
+            <li>Built <strong>Seq2Seq NLP framework</strong> converting transaction descriptions to portfolio health data in real-time — <strong>500× faster</strong> than prior approach — automating assessment for 16K+ wealth advisors</li>
+            <li>Deployed merchant identification model at <strong>94%+ accuracy</strong> for personal finance products used by 30M+ customers of major North American banks</li>
+            <li>Built wealth management product generating $35M revenue over 3 years</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tag">Seq2Seq</span>
+            <span class="tag">NLP</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">Wealth Tech</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Projects</p>
+    <h2 class="section-title">Selected Work</h2>
+    <div class="projects-grid">
+
+      <a class="project-card" href="https://github.com/shwetha-krishnamurthy/intellectro" target="_blank">
+        <div class="project-card-top">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="project-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="project-name">Intellectro</p>
+        <p class="project-desc">Simplifying research paper reading using RAG — query and synthesize information across academic papers through LLM-powered retrieval.</p>
+        <div class="timeline-tags">
+          <span class="tag">RAG</span>
+          <span class="tag">LLM</span>
+          <span class="tag">Python</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/shwetha-krishnamurthy/genai-shopping-assistant" target="_blank">
+        <div class="project-card-top">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="project-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="project-name">GenAI Shopping Assistant</p>
+        <p class="project-desc">RAG-based intelligent shopping assistant — a conversational interface for product discovery through natural language queries.</p>
+        <div class="timeline-tags">
+          <span class="tag">RAG</span>
+          <span class="tag">GenAI</span>
+          <span class="tag">Python</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/shwetha-krishnamurthy/reconstruction" target="_blank">
+        <div class="project-card-top">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22 8.5 12 15.5 2 8.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="project-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="project-name">Vision-Aided Inspection</p>
+        <p class="project-desc">B.Tech thesis at IIT KGP — 3D computer vision for vision-aided inspection in industrial settings. Also informed by a Purdue study-abroad scholarship on CV for Augmented Reality.</p>
+        <div class="timeline-tags">
+          <span class="tag">Computer Vision</span>
+          <span class="tag">C++</span>
+          <span class="tag">OpenCV</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/shwetha-krishnamurthy/opencv" target="_blank">
+        <div class="project-card-top">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 21h8M12 17v4" stroke-linecap="round"/></svg>
+          </div>
+          <div class="project-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="project-name">OpenCV Projects</p>
+        <p class="project-desc">Collection of computer vision experiments and algorithms built with OpenCV — image processing, feature detection, and visual analysis pipelines.</p>
+        <div class="timeline-tags">
+          <span class="tag">OpenCV</span>
+          <span class="tag">C++</span>
+          <span class="tag">Computer Vision</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/shwetha-krishnamurthy/CUDA" target="_blank">
+        <div class="project-card-top">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6M9 12h6M9 15h4" stroke-linecap="round"/></svg>
+          </div>
+          <div class="project-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <p class="project-name">CUDA & OpenMP</p>
+        <p class="project-desc">Assignments from High Performance Parallel Programming (Spring 2018) — GPU programming with CUDA and multi-core parallelism with OpenMP.</p>
+        <div class="timeline-tags">
+          <span class="tag">CUDA</span>
+          <span class="tag">OpenMP</span>
+          <span class="tag">HPC</span>
+          <span class="tag">C</span>
+        </div>
+      </a>
+
+      <a class="project-card" href="https://github.com/shwetha-krishnamurthy?tab=repositories" target="_blank" style="border-style: dashed; opacity: 0.65;">
+        <div class="project-card-top">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16" stroke-linecap="round"/><line x1="8" y1="12" x2="16" y2="12" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <p class="project-name">22 repos on GitHub</p>
+        <p class="project-desc">Browse the full list of repositories — including generative AI hackathon projects and more.</p>
+        <div class="timeline-tags">
+          <span class="tag">View all</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Academic Background</h2>
+    <div class="edu-grid">
+      <div class="edu-item">
+        <div>
+          <p class="edu-degree">MBA + MS, Computer Science <em style="font-style:italic;font-size:0.85em;color:var(--text-muted)">· Joint Degree</em></p>
+          <p class="edu-school">University of Chicago Booth School of Business & Dept. of Computer Science</p>
+          <p class="edu-detail">SW Scholarship · Booth AI Group Co-Chair · Machine Learning Specialization</p>
+        </div>
+        <p class="edu-year">Sep 2023 – Jun 2025</p>
+      </div>
+      <div class="edu-item">
+        <div>
+          <p class="edu-degree">B.Tech, Mechanical Engineering</p>
+          <p class="edu-school">IIT Kharagpur</p>
+          <p class="edu-detail">Study Abroad at Purdue · ML Team Lead at AgNext · 3D CV for AR (scholarship)</p>
+        </div>
+        <p class="edu-year">Aug 2014 – May 2018</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / WRITING -->
+<section id="blog">
+  <div class="container">
+    <p class="section-label">Writing</p>
+    <h2 class="section-title">Blog & Publications</h2>
+    <div class="blog-list">
+      <a class="blog-item" href="https://developer.nvidia.com/blog/author/skrishnamurt/" target="_blank">
+        <div>
+          <p class="blog-item-title">Optimizing LLM Inference with NVIDIA NIM + Run:AI</p>
+          <p class="blog-item-meta">NVIDIA Developer Blog · ~2× GPU utilization improvement, 44–61× faster cold-start latency</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span class="blog-item-date">2025</span>
+          <span class="blog-item-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
+    </div>
+    <p class="blog-placeholder">
+      More writing on LLM inference, disaggregated serving, and the ML-to-PM transition — coming soon.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get in touch</h2>
+    <div class="contact-layout">
+      <div>
+        <p class="contact-intro">
+          Whether it's about AI infrastructure, product roles, research, or just
+          a good conversation about ML systems and inference — feel free to reach out.
+        </p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:shwetha.krishnamurthy27@gmail.com">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-linecap="round" stroke-linejoin="round"/><polyline points="22,6 12,13 2,6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            shwetha.krishnamurthy27@gmail.com
+          </a>
+          <a class="contact-link" href="https://github.com/shwetha-krishnamurthy" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.137 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            github.com/shwetha-krishnamurthy
+          </a>
+          <a class="contact-link" href="https://developer.nvidia.com/blog/author/skrishnamurt/" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            NVIDIA Developer Blog
+          </a>
+        </div>
+      </div>
+      <form id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" required>
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea placeholder="What's on your mind?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send message</button>
+        <div class="form-success" id="form-success">Thanks! I'll get back to you soon.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Shwetha Krishnamurthy &nbsp;·&nbsp; <a href="https://github.com/shwetha-krishnamurthy" style="color:inherit;text-decoration:none;" target="_blank">github.com/shwetha-krishnamurthy</a></p>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+// Active nav
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}, { passive: true });
+
+// Contact form
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('form-success').style.display = 'block';
+    e.target.reset();
+    btn.textContent = 'Send message';
+    btn.disabled = false;
+  }, 900);
+}
+</script>
 </body>
 </html>
