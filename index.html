@@ -444,6 +444,35 @@
     font-family: var(--font-head);
   }
 
+  /* BLOG PAGINATION */
+  .blog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1.75rem 0 0;
+  }
+  .blog-pagination:empty { display: none; }
+  .blog-page-btn {
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .blog-page-btn:hover:not(:disabled) { color: var(--accent); border-color: var(--accent); }
+  .blog-page-btn.active { color: var(--accent); border-color: var(--accent); }
+  .blog-page-btn:disabled { opacity: 0.35; cursor: default; }
+
   /* CONTACT */
   #contact { background: var(--bg2); }
 
@@ -874,25 +903,13 @@
     <p class="section-label">Writing</p>
     <h2 class="section-title">Blog & Publications</h2>
     <div class="blog-list">
-      <a class="blog-item" href="https://developer.nvidia.com/blog/author/skrishnamurt/" target="_blank">
+      <a class="blog-item" href="https://shwethakrishnamurthy.substack.com/p/the-pizza-bakery" target="_blank">
         <div>
-          <p class="blog-item-title">Optimizing LLM Inference with NVIDIA NIM + Run:AI</p>
-          <p class="blog-item-meta">NVIDIA Developer Blog · ~2× GPU utilization improvement, 44–61× faster cold-start latency</p>
+          <p class="blog-item-title">The Pizza Bakery</p>
+          <p class="blog-item-meta">Substack · A pizza-kitchen guide to where your LLM server actually slows down</p>
         </div>
         <div style="display:flex;align-items:center;gap:0.75rem;">
-          <span class="blog-item-date">2025</span>
-          <span class="blog-item-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-          </span>
-        </div>
-      </a>
-      <a class="blog-item" href="https://www.chicagobooth.edu/why-booth/stories/where-product-management-meets-ai" target="_blank">
-        <div>
-          <p class="blog-item-title">Where Product Management Meets AI</p>
-          <p class="blog-item-meta">Chicago Booth · Won Kilts Center Case Competition — used LLMs to generate synthetic customer personas for Microsoft Teams Phone product strategy</p>
-        </div>
-        <div style="display:flex;align-items:center;gap:0.75rem;">
-          <span class="blog-item-date">Feb 2025</span>
+          <span class="blog-item-date">Jun 2026</span>
           <span class="blog-item-arrow">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
           </span>
@@ -922,7 +939,32 @@
           </span>
         </div>
       </a>
+      <a class="blog-item" href="https://developer.nvidia.com/blog/author/skrishnamurt/" target="_blank">
+        <div>
+          <p class="blog-item-title">Optimizing LLM Inference with NVIDIA NIM + Run:AI</p>
+          <p class="blog-item-meta">NVIDIA Developer Blog · ~2× GPU utilization improvement, 44–61× faster cold-start latency</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span class="blog-item-date">2025</span>
+          <span class="blog-item-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
+      <a class="blog-item" href="https://www.chicagobooth.edu/why-booth/stories/where-product-management-meets-ai" target="_blank">
+        <div>
+          <p class="blog-item-title">Where Product Management Meets AI</p>
+          <p class="blog-item-meta">Chicago Booth · Won Kilts Center Case Competition — used LLMs to generate synthetic customer personas for Microsoft Teams Phone product strategy</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;">
+          <span class="blog-item-date">Feb 2025</span>
+          <span class="blog-item-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </span>
+        </div>
+      </a>
     </div>
+    <div class="blog-pagination" id="blog-pagination"></div>
     <p class="blog-placeholder">
       More writing on LLM inference, AI tools, and the ML-to-PM transition on <a href="https://shwethakrishnamurthy.substack.com" target="_blank" style="color:var(--accent);text-decoration:none;">Substack</a>.
     </p>
@@ -972,6 +1014,44 @@
 </footer>
 
 <script>
+// Blog pagination
+(function () {
+  const PER_PAGE = 3;
+  const items = Array.from(document.querySelectorAll('.blog-list .blog-item'));
+  const pager = document.getElementById('blog-pagination');
+  if (!items.length || !pager) return;
+  const pageCount = Math.ceil(items.length / PER_PAGE);
+  if (pageCount <= 1) return;
+  let current = 1;
+
+  function render() {
+    items.forEach((item, i) => {
+      const page = Math.floor(i / PER_PAGE) + 1;
+      item.style.display = page === current ? '' : 'none';
+    });
+    pager.innerHTML = '';
+    const prev = makeBtn('‹', current - 1, current === 1);
+    pager.appendChild(prev);
+    for (let p = 1; p <= pageCount; p++) {
+      const btn = makeBtn(p, p, false);
+      if (p === current) btn.classList.add('active');
+      pager.appendChild(btn);
+    }
+    pager.appendChild(makeBtn('›', current + 1, current === pageCount));
+  }
+
+  function makeBtn(label, target, disabled) {
+    const btn = document.createElement('button');
+    btn.className = 'blog-page-btn';
+    btn.textContent = label;
+    btn.disabled = disabled;
+    if (!disabled) btn.addEventListener('click', () => { current = target; render(); });
+    return btn;
+  }
+
+  render();
+})();
+
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
